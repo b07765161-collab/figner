@@ -1,68 +1,93 @@
-<!doctype html>
+```html
+<!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Простий вхід</title>
-<style>
-  :root { --bg:#f4f5f7; --card:#fff; --text:#1d1f23; --muted:#6b7280; --accent:#4f46e5; --err:#dc2626; }
-  @media (prefers-color-scheme: dark) { :root { --bg:#111318; --card:#1b1e25; --text:#e8e9ec; --muted:#9aa0aa; } }
-  * { box-sizing: border-box; }
-  body { margin:0; min-height:100vh; display:grid; place-items:center; background:var(--bg); color:var(--text); font-family:system-ui, sans-serif; padding:16px; }
-  .card { background:var(--card); width:100%; max-width:360px; padding:32px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.08); }
-  h1 { margin:0 0 20px; font-size:24px; }
-  label { display:block; font-size:14px; color:var(--muted); margin:12px 0 6px; }
-  input { width:100%; padding:12px; border:1px solid #d1d5db; border-radius:10px; font-size:16px; background:transparent; color:inherit; }
-  button { width:100%; margin-top:20px; padding:12px; border:0; border-radius:10px; background:var(--accent); color:#fff; font-size:16px; cursor:pointer; }
-  .err { color:var(--err); font-size:14px; min-height:20px; margin-top:10px; }
-  .hint { color:var(--muted); font-size:13px; margin-top:14px; }
-</style>
-</head>
-<body>
-  <div class="card" id="login">
-    <h1>Вхід</h1>
-    <form id="form">
-      <label for="user">Логін</label>
-      <input id="user" autocomplete="username" required>
-      <label for="pass">Пароль</label>
-      <input id="pass" type="password" autocomplete="current-password" required>
-      <button type="submit">Увійти</button>
-      <div class="err" id="err"></div>
-    </form>
-    <div class="hint">Демо: admin / 1234</div>
-  </div>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вхід</title>
 
-  <div class="card" id="home" hidden>
-    <h1>Привіт, <span id="name"></span>! 👋</h1>
-    <p>Ти успішно увійшов.</p>
-    <button id="logout">Вийти</button>
-  </div>
-
-<script>
-  const USERS = { admin: "1234" }; // демо-акаунти (лише для навчання, не для реального сайту)
-  const $ = id => document.getElementById(id);
-
-  function show(user) {
-    $("login").hidden = !!user;
-    $("home").hidden = !user;
-    if (user) $("name").textContent = user;
-  }
-
-  $("form").onsubmit = e => {
-    e.preventDefault();
-    const u = $("user").value.trim(), p = $("pass").value;
-    if (USERS[u] === p) {
-      sessionStorage.setItem("user", u);
-      $("err").textContent = "";
-      show(u);
-    } else {
-      $("err").textContent = "Невірний логін або пароль";
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f3f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
     }
-  };
 
-  $("logout").onclick = () => { sessionStorage.removeItem("user"); $("form").reset(); show(null); };
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      width: 300px;
+      box-shadow: 0 4px 15px #0002;
+    }
 
-  show(sessionStorage.getItem("user"));
-</script>
+    input, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 6px;
+    }
+
+    input {
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #4285f4;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #message {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h2 id="title">Вхід на сайт</h2>
+
+    <form id="loginForm">
+      <input
+        type="email"
+        id="email"
+        placeholder="Тестовий Gmail"
+        required
+      >
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Тестовий пароль"
+        required
+      >
+
+      <button type="submit">Увійти</button>
+    </form>
+
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Демонстрація без збирання чи надсилання паролів.
+      form.hidden = true;
+      document.getElementById("title").textContent = "Успішно!";
+      message.textContent = "Демонстраційний вхід завершено.";
+    });
+  </script>
 </body>
 </html>
+```
